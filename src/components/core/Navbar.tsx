@@ -25,7 +25,7 @@ export default function Navbar()
 	];
 
 	return(
-		<AppBar>
+		<AppBar position="sticky">
 			<Container maxWidth="xl">
 				<Toolbar disableGutters>
 					<Typography 
