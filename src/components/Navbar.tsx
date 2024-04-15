@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { AppBar, Box, Button, Container, Toolbar, Typography } from "@mui/material";
 
 export default function Navbar()
@@ -7,27 +8,21 @@ export default function Navbar()
 	/**
 	 * Define available pages
 	 */
-	const pages = [ 'Token Bridge', 'Whitepaper', 'Github' ];
-
-	/**
-	 * Handle navigation when a page is clicked
-	 *
-	 * @param page - The page to navigate to
-	 */
-	const handleNavigation = ( page: string ) =>
-	{
-		switch( page )
+	const pages =
+	[ 
 		{
-			case 'Token Bridge':
-				window.location.href = '/';
-				break;
-			case 'Whitepaper':
-				window.location.href = '/';
-				break;
-			case 'Github':
-				window.location.href = '/';
+			name: 'Token Bridge', 
+			route: '/'
+		},
+		{
+			name: 'Whitepaper', 
+			route: '/'
+		},
+		{
+			name: 'Github',
+			route: 'https://github.com/eece571g-group6'
 		}
-	};
+	];
 
 	return(
 		<AppBar>
@@ -35,7 +30,7 @@ export default function Navbar()
 				<Toolbar disableGutters>
 					<Typography 
 						variant="h6"
-						component="a"
+						component={ Link }
 						href="/"
 						flexGrow={ 1 }
 					>
@@ -45,11 +40,12 @@ export default function Navbar()
 						{ pages.map( ( page ) => 
 						(
 							<Button
-								key={ page }
-								onClick={ () => handleNavigation( page ) }
+								key={ page.name }
+								component={ Link }
+								href={ page.route ?? '/' }
 								sx={{ ml: 2, color: 'white' }}
 							>
-								{ page }
+								{ page.name }
 							</Button>
 						) ) }
 					</Box>
