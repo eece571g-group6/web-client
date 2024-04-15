@@ -4,12 +4,13 @@ import { useAccount, useChainId, useSwitchChain } from "wagmi";
 import { Button, Card, CardContent, Grid, Typography } from "@mui/material";
 import BlockchiainSelect from "@/components/shared/BlockchainSelect";
 import ConnectWalletButton from "@/components/shared/ConnectWalletButton";
+import SelectTokenButton from "@/components/shared/SelectTokenButton";
 
 export default function SourceSection()
 {
 	const chainId = useChainId();
 	const { chains, switchChain } = useSwitchChain();
-	const { isDisconnected } = useAccount();
+	const { address, isDisconnected } = useAccount();
 
 	return(
 		<Card> 
@@ -39,12 +40,9 @@ export default function SourceSection()
 					</Grid>
 					{/* Select token */}
 					<Grid item xs={ 12 }>
-						<Button
-							variant="contained"
-							fullWidth
-						>
-							Select A Token
-						</Button>
+						<SelectTokenButton 
+							account={ address ?? null }
+						/>
 					</Grid>
 				</Grid>
 			</CardContent>
