@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from "react";
 import { useDisconnect } from "wagmi";
 import { Button, Stack } from "@mui/material";
 
@@ -10,6 +11,12 @@ interface ActionBarProps
 export default function ActionBar( props: ActionBarProps )
 {
 	const { disconnect } = useDisconnect();
+
+	// TODO: Implement transfer NFT
+	const handleTransfer = () =>
+	{
+		console.log( "Transfer NFT" );
+	};
 
 	return(
 		<Stack 
@@ -27,6 +34,7 @@ export default function ActionBar( props: ActionBarProps )
 			<Button
 				variant="contained"
 				color="primary"
+				onClick={ () => handleTransfer() }
 			>
 				Transfer NFT
 			</Button>
