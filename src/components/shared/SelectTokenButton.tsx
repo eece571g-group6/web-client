@@ -1,33 +1,31 @@
-import { useState } from "react";
-import { useBalance } from "wagmi";
+import { useEffect, useState } from "react";
+import { useChainId } from "wagmi";
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Stack } from "@mui/material";
 import NFTCard from "./NFTCard";
-
-interface NFTDisplay
-{
-	thumbnail: string;
-	name: string;
-	collection: string;
-	address: `0x${ string }`;
-	tokenId: string;
-};
+import useSelectedToken from "@/hooks/useSelectedToken";
 
 interface SelectTokenButtonProps
 {
-	account: `0x${ string }` | null;
+	walletAddress: `0x${ string }`;
 };
 
 export default function SelectTokenButton( props: SelectTokenButtonProps )
 {
 	const [ openDialog, setOpenDialog ] = useState( false );
-	const [ selectedToken, setSelectedToken ] = useState<NFTDisplay | null>( null );
+	const [ selectedToken, setSelectedToken ] = useSelectedToken();
+	const chainId = useChainId();
 
-	if( !props.account )
-		return( <></> );
+	const url = new URL( '/api/moralis/evmApi/getWalletNFTs' );
+	url.searchParams.append( 'chain', chainId.toString() );
+	url.searchParams.append( 'address', props.walletAddress )
+
+	const = await fetch( url );
+
+
 
 	// TODO: Need to get a list of NFT in the account, this does not work
 	//const balance = useBalance( { address: props.account } );
-	const mockNFTs: NFTDisplay[] =
+	const mockNFTs =
 	[
 		{
 			thumbnail: 'https://source.unsplash.com/random',
@@ -52,7 +50,7 @@ export default function SelectTokenButton( props: SelectTokenButtonProps )
 		}
 	];
 
-	const handleSelectToken = ( nft: NFTDisplay ) =>
+	const handleSelectToken = ( nft: any ) =>
 	{
 		setOpenDialog( false );
 		setSelectedToken( nft );

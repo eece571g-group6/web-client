@@ -40,9 +40,11 @@ export default function SourceSection()
 					</Grid>
 					{/* Select token */}
 					<Grid item xs={ 12 }>
-						<SelectTokenButton 
-							account={ address ?? null }
-						/>
+						{ address &&
+							<SelectTokenButton 
+								walletAddress={ address }
+							/>
+						}
 					</Grid>
 				</Grid>
 			</CardContent>
