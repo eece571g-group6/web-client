@@ -11,6 +11,10 @@ export default function Navbar()
 	const pages =
 	[ 
 		{
+			name: 'Mint Token',
+			route: '/mint'
+		},
+		{
 			name: 'Token Bridge', 
 			route: '/'
 		},
@@ -25,7 +29,7 @@ export default function Navbar()
 	];
 
 	return(
-		<AppBar position="sticky">
+		<AppBar position="sticky"> 
 			<Container maxWidth="xl">
 				<Toolbar disableGutters>
 					<Typography 
