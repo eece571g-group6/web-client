@@ -3,7 +3,6 @@ import { Card, CardActionArea, CardContent, CardMedia, Typography } from "@mui/m
 interface NFTCardProps
 {
 	thumbnail: string;
-	name: string;
 	collection: string;
 	address: `0x${ string }`;
 	tokenId: string;
@@ -26,7 +25,7 @@ export default function NFTCard( props: NFTCardProps )
 				/>
 				<CardContent>
 					<Typography variant="h6" sx={{ fontWeight: 800 }}>
-						{ props.name + ' #' + props.tokenId }
+						{ props.collection + ' #' + props.tokenId }
 					</Typography>
 					<Typography variant="body1">
 						{ props.collection }

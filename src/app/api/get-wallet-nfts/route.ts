@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import Moralis from 'moralis';
-import { EvmChain } from 'moralis/common-evm-utils';
 
 export async function GET( request: Request )
 {
@@ -13,7 +12,7 @@ export async function GET( request: Request )
 		switch( chain )
 		{
 			case '84532':
-				return '0x14a34';
+				return '0x14a33';
 			case '11155420':
 				return '0xaa37dc';
 		}
@@ -40,15 +39,17 @@ export async function GET( request: Request )
 				apiKey: process.env.MORALIS_API_KEY
 			} );
 
+			console.log( hexChain );
 			const response = await Moralis.EvmApi.nft.getWalletNFTs(
 			{
 				"chain": hexChain, 
 				"format": "decimal",
 				"mediaItems": false,
 				"address": address
-			} );
+			} ).catch( e => console.error(e));
+			console.log( response );
 
-			return( NextResponse.json( response.raw ) );
+			return( NextResponse.json( response ) );
 		}
 		catch( err )
 		{

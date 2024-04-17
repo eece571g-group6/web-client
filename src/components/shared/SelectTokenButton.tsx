@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
-import { useChainId } from "wagmi";
+import { useContext, useEffect, useState } from "react";
+import { useChainId, useReadContract } from "wagmi";
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Stack } from "@mui/material";
+import { SelectedTokenContext } from "@/contexts/SelectedTokenProvider";
 import NFTCard from "./NFTCard";
-import useSelectedToken from "@/hooks/useSelectedToken";
+import NFT from "@/abi/NFT.json";
+import { OP_TOKEN_ADDRESS } from "@/constants/contracts";
 
 interface SelectTokenButtonProps
 {
@@ -11,47 +13,51 @@ interface SelectTokenButtonProps
 
 export default function SelectTokenButton( props: SelectTokenButtonProps )
 {
+	const [ selectedToken, setSelectedToken ] = useContext( SelectedTokenContext )
 	const [ openDialog, setOpenDialog ] = useState( false );
-	const [ selectedToken, setSelectedToken ] = useSelectedToken();
 	const chainId = useChainId();
 
-	const url = new URL( '/api/moralis/evmApi/getWalletNFTs' );
-	url.searchParams.append( 'chain', chainId.toString() );
-	url.searchParams.append( 'address', props.walletAddress )
+	//const abi = NFT.abi;
 
-	const = await fetch( url );
+	//const result = useReadContract(
+	//{
+		//abi,
+		//address: OP_TOKEN_ADDRESS,
+		//functionName: 'balanceOf',
+		//args: [ props.walletAddress ]
+	//} );
 
+	// Construct query url
+	//let url = '/api/get-wallet-nfts';
+	//const searchParams = new URLSearchParams();
+	//searchParams.append( 'chain', chainId.toString() );
+	//searchParams.append( 'address', props.walletAddress )
+	//url = url + '?' + searchParams.toString();
 
+	//const { data } = useJsonFetch( url );
 
-	// TODO: Need to get a list of NFT in the account, this does not work
-	//const balance = useBalance( { address: props.account } );
+	// TODO: Need to get a list of NFT in the account
 	const mockNFTs =
 	[
 		{
 			thumbnail: 'https://source.unsplash.com/random',
-			name: 'NFT Name',
-			collection: 'NFT Collection Name',
-			address: '0x1234...4321',
+			collection: 'Random',
+			address: '0xe213...1a9c',
 			tokenId: '1'
 		},
-		{
-			thumbnail: 'https://source.unsplash.com/random',
-			name: 'NFT Name',
-			collection: 'NFT Collection Name',
-			address: '0x1234...4321',
-			tokenId: '2'
-		},
-		{
-			thumbnail: 'https://source.unsplash.com/random',
-			name: 'NFT Name',
-			collection: 'NFT Collection Name',
-			address: '0x1234...4321',
-			tokenId: '3'
-		}
 	];
+
+	//useEffect( () =>
+	//{
+		//if( result.data )
+		//{
+			
+		//}
+	//}, [ result ] );
 
 	const handleSelectToken = ( nft: any ) =>
 	{
+		//console.log( data );
 		setOpenDialog( false );
 		setSelectedToken( nft );
 	};
@@ -60,7 +66,6 @@ export default function SelectTokenButton( props: SelectTokenButtonProps )
 		<>
 			{ selectedToken ?
 				<NFTCard
-					name={ selectedToken.name }
 					thumbnail={ selectedToken.thumbnail }
 					collection={ selectedToken.collection }
 					address={ selectedToken.address }
@@ -91,7 +96,6 @@ export default function SelectTokenButton( props: SelectTokenButtonProps )
 							<NFTCard
 								key={ nft.address + nft.tokenId }
 								thumbnail={ nft.thumbnail }
-								name={ nft.name }
 								collection={ nft.collection }
 								address={ nft.address as `0x${ string }` }
 								tokenId={ nft.tokenId }

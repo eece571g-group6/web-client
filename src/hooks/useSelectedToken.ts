@@ -4,7 +4,6 @@ import { useAccount } from "wagmi";
 interface NFT
 {
 	thumbnail: string;
-	name: string;
 	collection: string;
 	address: `0x${ string }`;
 	tokenId: string;
