@@ -4,7 +4,9 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { cookieToInitialState } from "wagmi";
 import { wagmiConfig } from "@/configs/wagmiConfig";
+import MuiThemeProvider from "@/contexts/MuiThemeProvider";
 import Web3ModalProvider from "@/contexts/Web3ModalProvider";
+import Navbar from "@/components/core/Navbar";
 
 const inter = Inter( { subsets: ["latin"] } );
 
@@ -29,9 +31,12 @@ export default function RootLayout(
 	return(
 		<html lang="en">
 			<body className={ inter.className }>
-				<Web3ModalProvider initialState={ initialState }>
-					{ children }
-				</Web3ModalProvider>
+				<MuiThemeProvider>
+					<Web3ModalProvider initialState={ initialState }>
+						<Navbar />
+						{ children }
+					</Web3ModalProvider>
+				</MuiThemeProvider>
 			</body>
 		</html>
 	);
